@@ -1,0 +1,4 @@
+E:\projects\ComboBox\Debug\ComboBox.exe
+E:\projects\ComboBox\Debug\ComboBox.pdb
+E:\install\projects\ComboBox\Debug\ComboBox.exe
+E:\install\projects\ComboBox\Debug\ComboBox.pdb
