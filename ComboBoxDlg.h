@@ -94,6 +94,10 @@ public:
 	
 	CListBox lstbx_Alphabet;
 	afx_msg void OnLbnSelchangeListAphabet();
-	afx_msg void OnBnClickedbuA();
-	CMFCButton buSegments[SEGMENT_NUM];
+	afx_msg void OnBnSegClicked(UINT nID);
+
+	struct _buSegment{
+		CMFCButton buSegment;
+		bool tggl;
+	}buSegments[SEGMENT_NUM];
 };

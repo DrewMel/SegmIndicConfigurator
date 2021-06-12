@@ -65,7 +65,14 @@ void CComboBoxDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_H, chck_Segment[7]);
 	DDX_Control(pDX, IDC_LIST_APHABET, lstbx_Alphabet);
 
-	DDX_Control(pDX, IDC_bu_A, buSegments[0]);
+	DDX_Control(pDX, IDC_bu_A, buSegments[0].buSegment);
+	DDX_Control(pDX, IDC_bu_B, buSegments[1].buSegment);
+	DDX_Control(pDX, IDC_bu_C, buSegments[2].buSegment);
+	DDX_Control(pDX, IDC_bu_D, buSegments[3].buSegment);
+	DDX_Control(pDX, IDC_bu_E, buSegments[4].buSegment);
+	DDX_Control(pDX, IDC_bu_F, buSegments[5].buSegment);
+	DDX_Control(pDX, IDC_bu_G, buSegments[6].buSegment);
+	DDX_Control(pDX, IDC_bu_H, buSegments[7].buSegment);
 }
 
 BEGIN_MESSAGE_MAP(CComboBoxDlg, CDialogEx)
@@ -106,7 +113,7 @@ BEGIN_MESSAGE_MAP(CComboBoxDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTT_PUSH, &CComboBoxDlg::OnBnClickedButtPushSymbol)
 	ON_BN_CLICKED(IDC_BUTT_DELETE, &CComboBoxDlg::OnBnClickedButtDeleteSelectedSymbol)
 	ON_LBN_SELCHANGE(IDC_LIST_APHABET, &CComboBoxDlg::OnLbnSelchangeListAphabet)
-	ON_BN_CLICKED(IDC_bu_A, &CComboBoxDlg::OnBnClickedbuA)
+	ON_COMMAND_RANGE(IDC_bu_A, IDC_bu_H, &CComboBoxDlg::OnBnSegClicked)
 END_MESSAGE_MAP()
 
 
@@ -173,6 +180,15 @@ BOOL CComboBoxDlg::OnInitDialog()
 			cb_segm.set_segment_pin(i, PINS_IN_PORT_NUM);
 		}
 	}
+
+	for (UINT i = 0; i < SEGMENT_NUM; i++)
+	{
+		buSegments[i].buSegment.EnableWindowsTheming(FALSE);
+		buSegments[i].buSegment.SetFaceColor(RGB(255, 255, 255), true);
+		buSegments[i].buSegment.SetTextColor(RGB(0, 0, 0));
+		buSegments[i].tggl = FALSE;
+	}
+
 	UpdateData(FALSE);
 	
 
@@ -324,12 +340,21 @@ void CComboBoxDlg::OnLbnSelchangeListAphabet()
 }
 
 
-void CComboBoxDlg::OnBnClickedbuA()
+afx_msg void CComboBoxDlg::OnBnSegClicked(UINT nID)
 {
-	UpdateData(TRUE);
-	buSegments[0].EnableWindowsTheming(FALSE);
-	buSegments[0].SetFaceColor(RGB(0,0,0), true);
-	buSegments[0].SetTextColor(RGB(255,255,255));
+	assert((nID>=IDC_bu_A)&&(nID<=IDC_bu_H));
+	UINT segm = nID - IDC_bu_A;
+
+	if (buSegments[segm].tggl = !buSegments[segm].tggl == TRUE)
+	{
+		buSegments[segm].buSegment.SetFaceColor(RGB(255, 0, 0), true);
+		//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
+	}
+	else
+	{
+		buSegments[segm].buSegment.SetFaceColor(RGB(255, 255, 255), true);
+		//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
+	}
 	
 	UpdateData(FALSE);
 }
