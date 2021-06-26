@@ -268,22 +268,15 @@ void CComboBoxDlg::OnBnClickedButtPushSymbol()
 	
 	m_edtwchSymbol.GetWindowTextW(symbol_name.GetBuffer(MAX_ALPABET_SYMBOL_LEN), MAX_ALPABET_SYMBOL_LEN);
 	//map_alphabet.insert(std::make_pair(symbol_name, symbol));
-		
-	if (LB_ERR == lstbx_Alphabet.FindStringExact(0, symbol_name.GetBuffer(MAX_ALPABET_SYMBOL_LEN)))
+	symbol_name.ReleaseBuffer();
+	if ((symbol_name.GetLength()!=0)&&(LB_ERR == lstbx_Alphabet.FindStringExact(0, symbol_name.GetBuffer(MAX_ALPABET_SYMBOL_LEN))))
 	{
+		//symbol_name.Format(L"%d - size", symbol_name.GetLength());
 		map_alphabet.SetAt(symbol_name, symbol);
 		lstbx_Alphabet.AddString(symbol_name);
 	}
 
-}	/*
-	alphabet[0].symbol = 0;
-	for(char i = 0; i < SEGMENT_NUM; i++)
-	{
-		if (chck_Segment[i]) alphabet[0].symbol |= 1 << i;
-	}
-	UpdateData(TRUE);
-	m_wch_Symbol.GetWindowTextW(alphabet[0].letter,MAX_ALPABET_SYMBOL_LEN);
-	*/
+}
 
 
 
