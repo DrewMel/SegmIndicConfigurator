@@ -22,10 +22,6 @@
 CComboBoxDlg::CComboBoxDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_COMBOBOX_DIALOG, pParent)
 {
-	for (char i = 0; i < SEGMENT_NUM; i++)
-	{
-		chck_Segment[i] = FALSE;
-	}
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -54,15 +50,6 @@ void CComboBoxDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RADIO2, radiobut_Cathode);
 	DDX_Control(pDX, IDC_EDIT_SYMBOL, m_edtwchSymbol);
 
-
-	DDX_Check(pDX, IDC_CHECK_A, chck_Segment[0]);
-	DDX_Check(pDX, IDC_CHECK_B, chck_Segment[1]);
-	DDX_Check(pDX, IDC_CHECK_C, chck_Segment[2]);
-	DDX_Check(pDX, IDC_CHECK_D, chck_Segment[3]);
-	DDX_Check(pDX, IDC_CHECK_E, chck_Segment[4]);
-	DDX_Check(pDX, IDC_CHECK_F, chck_Segment[5]);
-	DDX_Check(pDX, IDC_CHECK_G, chck_Segment[6]);
-	DDX_Check(pDX, IDC_CHECK_H, chck_Segment[7]);
 	DDX_Control(pDX, IDC_LIST_APHABET, lstbx_Alphabet);
 
 	DDX_Control(pDX, IDC_bu_A, buSegments[0].buSegment);
@@ -261,7 +248,8 @@ void CComboBoxDlg::OnBnClickedButtPushSymbol()
 	char symbol = 0;
 	for (char i = 0; i < SEGMENT_NUM; i++)
 	{
-		if (chck_Segment[i]) symbol |= 1 << i;
+		if (buSegments[i].tggl)
+			symbol |= 1 << i;
 	}
 
 	CString symbol_name;
@@ -294,11 +282,6 @@ void CComboBoxDlg::OnBnClickedButtDeleteSelectedSymbol()
 		m_edtwchSymbol.SetSel(0, TRUE);
 		m_edtwchSymbol.Clear();
 
-		for (char i = 0; i < SEGMENT_NUM; i++)
-		{
-			chck_Segment[i] = FALSE;
-		}
-
 		UpdateData(FALSE);
 	}
 	// TODO: Add your control notification handler code here
@@ -319,7 +302,8 @@ void CComboBoxDlg::OnLbnSelchangeListAphabet()
 
 		for (char i = 0; i < SEGMENT_NUM; i++)
 		{
-			chck_Segment[i] = (symbol & (1 << i))? TRUE: FALSE;
+			if (buSegments[i].tggl != !!(symbol & (1 << i)))
+				buSegments[i].ToggleSegment();				
 		}
 
 		m_edtwchSymbol.SetWindowTextW(symbol_name.GetBuffer(MAX_ALPABET_SYMBOL_LEN));
@@ -337,17 +321,27 @@ afx_msg void CComboBoxDlg::OnBnSegClicked(UINT nID)
 {
 	assert((nID>=IDC_bu_A)&&(nID<=IDC_bu_H));
 	UINT segm = nID - IDC_bu_A;
+	buSegments[segm].ToggleSegment();
 
-	if (buSegments[segm].tggl = !buSegments[segm].tggl == TRUE)
-	{
-		buSegments[segm].buSegment.SetFaceColor(RGB(255, 0, 0), true);
-		//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
-	}
-	else
-	{
-		buSegments[segm].buSegment.SetFaceColor(RGB(255, 255, 255), true);
-		//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
-	}
-	
 	UpdateData(FALSE);
 }
+
+
+/*
+afx_msg void CComboBoxDlg::SetSegment(UINT segm)
+{
+	if (segm < SEGMENT_NUM)
+	{
+		if (buSegments[segm].tggl = !buSegments[segm].tggl == TRUE)
+		{
+			buSegments[segm].buSegment.SetFaceColor(RGB(255, 0, 0), true);
+			//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
+		}
+		else
+		{
+			buSegments[segm].buSegment.SetFaceColor(RGB(255, 255, 255), true);
+			//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
+		}
+	}
+}
+*/

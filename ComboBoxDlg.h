@@ -30,7 +30,6 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
-
 // Implementation
 protected:
 	HICON m_hIcon;
@@ -89,7 +88,6 @@ public:
 	afx_msg void OnBnClickedButtPushSymbol();
 	afx_msg void OnBnClickedButtDeleteSelectedSymbol();
 
-	BOOL chck_Segment[SEGMENT_NUM];
 	CEdit m_edtwchSymbol;
 	
 	CListBox lstbx_Alphabet;
@@ -99,5 +97,16 @@ public:
 	struct _buSegment{
 		CMFCButton buSegment;
 		bool tggl;
+		void ToggleSegment(void)
+		{
+			if (tggl = (!tggl) == TRUE)
+			{
+				buSegment.SetFaceColor(RGB(255, 0, 0), true);
+			}
+			else
+			{
+				buSegment.SetFaceColor(RGB(255, 255, 255), true);
+			}
+		}
 	}buSegments[SEGMENT_NUM];
 };

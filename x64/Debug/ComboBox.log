@@ -1,2 +1,8 @@
-﻿  ComboBoxDlg.cpp
+﻿  pch.cpp
+  cboxmgr.cpp
+  ccombb.cpp
+  ComboBox.cpp
+  ComboBoxDlg.cpp
+  Создание кода...
+E:\project\ComboBox\cboxmgr.cpp(28): warning C4715: cboxmgr::save_configs: значение возвращается не при всех путях выполнения
   ComboBox.vcxproj -> E:\project\ComboBox\x64\Debug\ComboBox.exe
