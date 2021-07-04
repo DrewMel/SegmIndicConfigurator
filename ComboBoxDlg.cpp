@@ -223,7 +223,7 @@ HCURSOR CComboBoxDlg::OnQueryDragIcon()
 void CComboBoxDlg::OnBnClickedButton1()
 {
 
-	cb_segm.save_configs();
+//	cb_segm.save_configs();
 
 	// TODO: Add your control notification handler code here
 }

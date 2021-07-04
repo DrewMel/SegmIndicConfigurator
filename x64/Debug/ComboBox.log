@@ -1,5 +1,7 @@
-﻿  ccombb.cpp
+﻿  cboxmgr.cpp
+  ccombb.cpp
   ComboBoxDlg.cpp
+E:\project\ComboBox\ComboBoxDlg.cpp(145,15): error C2039: "load_configs": не является членом "cboxmgr".
+E:\project\ComboBox\cboxmgr.h(10): message : см. объявление "cboxmgr"
 E:\project\ComboBox\ComboBoxDlg.cpp(336,14): warning C4244: инициализация: преобразование "INT_PTR" в "int", возможна потеря данных
   Создание кода...
-  ComboBox.vcxproj -> E:\project\ComboBox\x64\Debug\ComboBox.exe

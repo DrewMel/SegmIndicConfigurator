@@ -1,46 +1,16 @@
 #include "pch.h"
 #include "cboxmgr.h"
 
+
+#define ERR_PORT 3
+#define ERR_PIN 8
 cboxmgr::cboxmgr()
 {
     for (char i = 0; i< SEGMENT_NUM; i++)
     {
-        cfg_inf.segments[i].port = 3;
-        cfg_inf.segments[i].pin = 8;
+        cfg_inf.segments[i].port = ERR_PORT;
+        cfg_inf.segments[i].pin = ERR_PIN;
     }   
-}
-
-int cboxmgr::save_configs()
-{
-    CFile Configsfile;
-    CFileException cfex;
-    if (!Configsfile.Open(L"segmconfigs.atm8", CFile::modeCreate | CFile::modeWrite, &cfex))
-    {
-        MessageBox(NULL, L"File openning is failed!", L"Error", MB_OK|MB_ICONERROR);
-        return -1;
-    }
-    else
-    {
-        Configsfile.Write((char*)&cfg_inf, sizeof(config_info));
-        MessageBox(NULL, L"File saved!", L"Info", MB_OK | MB_ICONINFORMATION);
-    }
-    Configsfile.Close();
-}
-
-int cboxmgr::load_configs()
-{
-    CFile Configsfile;
-    CFileException cfex;
-    if (!Configsfile.Open(L"segmconfigs.atm8", CFile::modeRead, &cfex))
-    {
-        return -1;
-    }
-    else
-    {
-        Configsfile.Read((char*)&cfg_inf, sizeof(config_info));
-    }
-    Configsfile.Close();
-    return 0;
 }
 
 
@@ -117,3 +87,39 @@ void cboxmgr::set_indicator_type_cathode(void)
 {
     cfg_inf.type = CATHODE;
 }
+
+/*
+int cboxmgr::save_configs()
+{
+    CFile Configsfile;
+    CFileException cfex;
+    if (!Configsfile.Open(L"segmconfigs.atm8", CFile::modeCreate | CFile::modeWrite, &cfex))
+    {
+        MessageBox(NULL, L"File openning is failed!", L"Error", MB_OK | MB_ICONERROR);
+        return -1;
+    }
+    else
+    {
+        Configsfile.Write((char*)&cfg_inf, sizeof(config_info));
+        MessageBox(NULL, L"File saved!", L"Info", MB_OK | MB_ICONINFORMATION);
+    }
+    Configsfile.Close();
+}
+
+int cboxmgr::load_configs()
+{
+    CFile Configsfile;
+    CFileException cfex;
+    if (!Configsfile.Open(L"segmconfigs.atm8", CFile::modeRead, &cfex))
+    {
+        return -1;
+    }
+    else
+    {
+        Configsfile.Read((char*)&cfg_inf, sizeof(config_info));
+    }
+    Configsfile.Close();
+    return 0;
+}
+
+*/

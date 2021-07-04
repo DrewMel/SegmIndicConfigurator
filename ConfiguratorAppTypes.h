@@ -2,24 +2,14 @@
 
 #include "ConfigSettings.h"
 
-enum result { OK, ERR };
-enum indicator_type { ANODE, CATHODE };
 
-struct segment_pin
-{
-	unsigned char port : 2;
-	unsigned char pin : 4;
-};
 
-struct config_info
-{
-	unsigned char ports_num : 2;
-	indicator_type type;
-	unsigned char buisy_pins[AVR_PORTS_NUM];
-	segment_pin segments[SEGMENT_NUM];
-	unsigned char symbols_num;
-};
 
+
+
+
+//no need
+#ifdef TYPE_SYMBOL
 struct symbol_1
 {
     wchar_t letter[MAX_ALPABET_SYMBOL_LEN+1];
@@ -37,3 +27,4 @@ struct symbol_1
         };
     };
 };
+#endif
