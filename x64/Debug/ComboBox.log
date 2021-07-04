@@ -1,8 +1,5 @@
-﻿  pch.cpp
-  cboxmgr.cpp
-  ccombb.cpp
-  ComboBox.cpp
+﻿  ccombb.cpp
   ComboBoxDlg.cpp
+E:\project\ComboBox\ComboBoxDlg.cpp(336,14): warning C4244: инициализация: преобразование "INT_PTR" в "int", возможна потеря данных
   Создание кода...
-E:\project\ComboBox\cboxmgr.cpp(28): warning C4715: cboxmgr::save_configs: значение возвращается не при всех путях выполнения
   ComboBox.vcxproj -> E:\project\ComboBox\x64\Debug\ComboBox.exe

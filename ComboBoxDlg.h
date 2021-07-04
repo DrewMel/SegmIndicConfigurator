@@ -109,4 +109,5 @@ public:
 			}
 		}
 	}buSegments[SEGMENT_NUM];
+	afx_msg void OnBnClickedButMakeHeader();
 };

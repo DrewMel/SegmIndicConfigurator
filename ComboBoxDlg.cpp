@@ -101,6 +101,7 @@ BEGIN_MESSAGE_MAP(CComboBoxDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTT_DELETE, &CComboBoxDlg::OnBnClickedButtDeleteSelectedSymbol)
 	ON_LBN_SELCHANGE(IDC_LIST_APHABET, &CComboBoxDlg::OnLbnSelchangeListAphabet)
 	ON_COMMAND_RANGE(IDC_bu_A, IDC_bu_H, &CComboBoxDlg::OnBnSegClicked)
+	ON_BN_CLICKED(IDC_BUT_MAKE_HTABLE, &CComboBoxDlg::OnBnClickedButMakeHeader)
 END_MESSAGE_MAP()
 
 
@@ -257,13 +258,13 @@ void CComboBoxDlg::OnBnClickedButtPushSymbol()
 	m_edtwchSymbol.GetWindowTextW(symbol_name.GetBuffer(MAX_ALPABET_SYMBOL_LEN), MAX_ALPABET_SYMBOL_LEN);
 	//map_alphabet.insert(std::make_pair(symbol_name, symbol));
 	symbol_name.ReleaseBuffer();
-	if ((symbol_name.GetLength()!=0)&&(LB_ERR == lstbx_Alphabet.FindStringExact(0, symbol_name.GetBuffer(MAX_ALPABET_SYMBOL_LEN))))
-	{
-		//symbol_name.Format(L"%d - size", symbol_name.GetLength());
-		map_alphabet.SetAt(symbol_name, symbol);
-		lstbx_Alphabet.AddString(symbol_name);
-	}
-
+	if (symbol_name.GetLength()!=0)
+		if(LB_ERR == lstbx_Alphabet.FindStringExact(0, symbol_name.GetBuffer(MAX_ALPABET_SYMBOL_LEN)))
+		{
+			//symbol_name.Format(L"%d - size", symbol_name.GetLength());			
+			lstbx_Alphabet.AddString(symbol_name);
+		}
+	map_alphabet.SetAt(symbol_name, symbol);
 }
 
 
@@ -302,7 +303,7 @@ void CComboBoxDlg::OnLbnSelchangeListAphabet()
 
 		for (char i = 0; i < SEGMENT_NUM; i++)
 		{
-			if (buSegments[i].tggl != !!(symbol & (1 << i)))
+			if (buSegments[i].tggl == !(symbol & (1 << i)))
 				buSegments[i].ToggleSegment();				
 		}
 
@@ -327,21 +328,23 @@ afx_msg void CComboBoxDlg::OnBnSegClicked(UINT nID)
 }
 
 
-/*
-afx_msg void CComboBoxDlg::SetSegment(UINT segm)
+void CComboBoxDlg::OnBnClickedButMakeHeader()
 {
-	if (segm < SEGMENT_NUM)
+	if (map_alphabet.GetCount())
 	{
-		if (buSegments[segm].tggl = !buSegments[segm].tggl == TRUE)
+		CFileDialog fileDialog(FALSE, L"h", L"7segmindtbl");	//объект класса выбора файла
+		int result = fileDialog.DoModal();	//запустить диалоговое окно
+		if (result == IDOK)	//если файл выбран
 		{
-			buSegments[segm].buSegment.SetFaceColor(RGB(255, 0, 0), true);
-			//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
-		}
-		else
-		{
-			buSegments[segm].buSegment.SetFaceColor(RGB(255, 255, 255), true);
-			//buSegments[segm].buSegment.SetTextColor(RGB(255, 255, 255));
+
+				CFile tablearr;
+	
+			AfxMessageBox(fileDialog.GetPathName()); // показать полный путь
 		}
 	}
+	else
+	{
+		AfxMessageBox(L"The table is empty!", MB_OK); // пустая таблица
+	}
+
 }
-*/
